@@ -8,5 +8,5 @@
 import Foundation
 
 struct Section {
-    var categories: [String: [Movie]] = [:]
+    var categories = [String: [Movie]]()
 }

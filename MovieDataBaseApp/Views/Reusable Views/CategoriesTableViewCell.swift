@@ -10,6 +10,7 @@ import UIKit
 class CategoriesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var buttonlabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,6 +21,10 @@ class CategoriesTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func showButton(visibility : Bool) {
+        self.buttonlabel.isHidden = !visibility
     }
     
 }
