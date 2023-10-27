@@ -17,12 +17,12 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         homeViewModel.willLoadDataFromJsonFile(fileName: "movies")
-        
+        self.registerTableViewCells()
         
         // Do any additional setup after loading the view.
     }
 
-    func updateUI() {
+    func registerTableViewCells() {
         tableView.register(UINib(nibName: "MovieDetailsTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieDetailsTableViewCell")
         tableView.register(UINib(nibName: "CategoriesTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoriesTableViewCell")
         tableView.delegate = self
