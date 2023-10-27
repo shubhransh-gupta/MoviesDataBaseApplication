@@ -9,7 +9,7 @@ import Foundation
 
 class DiskManager {
     
-    func loadMoviesFromJSONFile(filename: String) -> [Movie]? {
+   public func loadMoviesFromJSONFile(filename: String) -> [Movie]? {
         
         if let path = Bundle.main.path(forResource: filename, ofType: "json") {
             do {

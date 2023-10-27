@@ -5,7 +5,7 @@
 //  Created by Shubhransh Gupta on 27/10/23.
 //
 
-import Foundation
+import UIKit
 
 class HomeViewModel {
     
@@ -13,28 +13,26 @@ class HomeViewModel {
     let networkManager : NetworkManager?
     
     var allMovies : [Movie] = []
-    var yearCategories: [String: [Movie]] = [:]
-    var genreCategories: [String: [Movie]] = [:]
-    var directorCategories: [String: [Movie]] = [:]
-    var actorsCategories: [String: [Movie]] = [:]
+    var searchedMovies : [Movie] = []
+    var sections: [Section] = []
+    var isSectionExpanded: [Bool] = [false, false, false, false, false]
     
     init(diskManager: DiskManager?, networkManager : NetworkManager?) {
         self.diskManager = diskManager
         self.networkManager = networkManager
     }
     
-    func willLoadDataFromJsonFile(fileName : String) {
+    public func willLoadDataFromJsonFile(fileName : String) {
         if let movies = self.diskManager?.loadMoviesFromJSONFile(filename: fileName) {
             self.allMovies = movies
             self.populateDataInYearCategory()
-            self.populateDataInActorCategory()
             self.populateDataInGenreCategory()
             self.populateDataInDirectorCategory()
+            self.populateDataInActorCategory()
         } else {
             print("Failed to load movies from JSON file.")
         }
     }
-    
 
     
     
@@ -42,47 +40,68 @@ class HomeViewModel {
 
 extension HomeViewModel {
     
-    func populateDataInYearCategory() {
+    private func populateDataInYearCategory() {
         for movie in self.allMovies {
             let year = movie.year
-            if yearCategories[year] == nil {
-                yearCategories[year] = [movie]
+            if self.sections[0].categories[year] == nil {
+                self.sections[0].categories[year] = [movie]
             } else {
-                yearCategories[year]?.append(movie)
+                self.sections[0].categories[year]?.append(movie)
             }
         }
     }
     
-    func populateDataInGenreCategory() {
+    private func populateDataInGenreCategory() {
         for movie in self.allMovies {
             let genre = movie.genre
-            if genreCategories[genre] == nil {
-                genreCategories[genre] = [movie]
+            if self.sections[1].categories[genre] == nil {
+                self.sections[1].categories[genre] = [movie]
             } else {
-                genreCategories[genre]?.append(movie)
+                self.sections[1].categories[genre]?.append(movie)
             }
         }
     }
     
-    func populateDataInActorCategory() {
+    private func populateDataInActorCategory() {
         for movie in self.allMovies {
             let actors = movie.actors
-            if actorsCategories[actors] == nil {
-                actorsCategories[actors] = [movie]
+            if self.sections[3].categories[actors] == nil {
+                self.sections[3].categories[actors] = [movie]
             } else {
-                actorsCategories[actors]?.append(movie)
+                self.sections[3].categories[actors]?.append(movie)
             }
         }
     }
     
-    func populateDataInDirectorCategory() {
+    private func populateDataInDirectorCategory() {
         for movie in self.allMovies {
             let director = movie.director
-            if directorCategories[director] == nil {
-                directorCategories[director] = [movie]
+            if self.sections[2].categories[director] == nil {
+                self.sections[2].categories[director] = [movie]
             } else {
-                directorCategories[director]?.append(movie)
+                self.sections[2].categories[director]?.append(movie)
             }
         }
+    }
+    
+}
+
+extension HomeViewModel {
+    public func searchMovies(query: String) -> [Movie] {
+        let lowercasedQuery = query.lowercased()
+        
+        return allMovies.filter { movie in
+            return
+                movie.title.lowercased().contains(lowercasedQuery) ||
+                movie.genre.lowercased().contains(lowercasedQuery) ||
+                movie.actors.lowercased().contains(lowercasedQuery) ||
+                movie.director.lowercased().contains(lowercasedQuery)
+        }
+    }
+    
+    public func fetchImage(imageUrlString : String, OnSuccess : @escaping (UIImage) -> ()) {
+        self.networkManager?.getImage(imageUrlString: imageUrlString, OnSuccess: { image in
+            OnSuccess(image)
+        })
     }
 }
