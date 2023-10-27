@@ -10,14 +10,17 @@ import Foundation
 class HomeViewModel {
     
     let diskManager : DiskManager?
+    let networkManager : NetworkManager?
+    
     var allMovies : [Movie] = []
     var yearCategories: [String: [Movie]] = [:]
     var genreCategories: [String: [Movie]] = [:]
     var directorCategories: [String: [Movie]] = [:]
     var actorsCategories: [String: [Movie]] = [:]
     
-    init(diskManager: DiskManager?) {
+    init(diskManager: DiskManager?, networkManager : NetworkManager?) {
         self.diskManager = diskManager
+        self.networkManager = networkManager
     }
     
     func willLoadDataFromJsonFile(fileName : String) {
