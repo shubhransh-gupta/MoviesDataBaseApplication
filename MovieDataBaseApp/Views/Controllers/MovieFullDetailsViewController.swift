@@ -123,7 +123,7 @@ class MovieFullDetailsViewController: UIViewController {
             plotTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             plotTextView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             plotTextView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            plotTextView.heightAnchor.constraint(equalToConstant: 100),
+            plotTextView.heightAnchor.constraint(equalToConstant: 200),
             
             castCrewLabel.topAnchor.constraint(equalTo: plotTextView.bottomAnchor, constant: 10),
             castCrewLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),

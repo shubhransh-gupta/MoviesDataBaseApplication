@@ -111,8 +111,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             present(vc, animated: true)
         default:
             let vc = CategoriesDetailsViewController()
-//            vc.categoryMovies = self.homeViewModel.sections[indexPath.section].categories.values.filter( { $0.key == self.homeViewModel.currentCategory[indexPath.row] } )
-            vc.titleC = self.homeViewModel.currentCategory[indexPath.row]
+            let keyValue = self.homeViewModel.currentCategory[indexPath.section][indexPath.row]
+            vc.categoryMovies = self.homeViewModel.sections[indexPath.section].categories[keyValue] ?? []
+            vc.titleC = keyValue
             present(vc, animated: true)
         }
     }
@@ -150,7 +151,7 @@ extension HomeViewController {
         for (index, categ) in categories.enumerated() {
             if index == indexPath.row {
                 cell.label.text = categ.key
-                self.homeViewModel.currentCategory.append(categ.key)
+                self.homeViewModel.currentCategory[indexPath.section].append(categ.key)
             }
         }
         

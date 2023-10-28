@@ -21,7 +21,7 @@ class CategoriesDetailsViewController : UIViewController {
         return label
     }()
     
-    var categoryMovies : [String] = []
+    var categoryMovies : [Movie] = []
     var titleC : String = ""
     
     override func viewDidLoad() {
@@ -36,24 +36,26 @@ class CategoriesDetailsViewController : UIViewController {
         // Add the UILabel to the view
         view.addSubview(label)
         
-        // Set up constraints for the UITextView
-        NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            textView.heightAnchor.constraint(equalToConstant: 150) // Adjust the height as needed
-        ])
-        
         // Set up constraints for the UILabel
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 20),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+        
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            textView.heightAnchor.constraint(equalToConstant: 400) // Adjust the height as needed
+        ])
+        
+
         
         label.text = titleC
         
         for val in categoryMovies {
-            textView.text = "\(val)\n"
+            textView.text = "\(val.title)\n"
         }
     }
 }
