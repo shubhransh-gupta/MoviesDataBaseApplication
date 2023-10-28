@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
     }
     
     func updateUI() {
+        self.title = "Movie Database"
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
@@ -106,10 +107,13 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         case 4:
             let vc = MovieFullDetailsViewController()
             vc.movie = self.homeViewModel.allMovies[indexPath.row]
-            vc.currImage = self.homeViewModel.imageCache[indexPath.row]
+            vc.currImage = self.homeViewModel.allMovies[indexPath.row].actualImage
             present(vc, animated: true)
         default:
-            print("touched")
+            let vc = CategoriesDetailsViewController()
+//            vc.categoryMovies = self.homeViewModel.sections[indexPath.section].categories.values.filter( { $0.key == self.homeViewModel.currentCategory[indexPath.row] } )
+            vc.titleC = self.homeViewModel.currentCategory[indexPath.row]
+            present(vc, animated: true)
         }
     }
     
@@ -134,7 +138,7 @@ extension HomeViewController {
         cell.year.text = "Year :  " + "\(self.homeViewModel.allMovies[indexPath.row].year)"
         self.homeViewModel.fetchImage(imageUrlString: self.homeViewModel.allMovies[indexPath.row].poster, OnSuccess: { image in
             cell.poster.image = image
-            self.homeViewModel.imageCache.append(image)
+            self.homeViewModel.allMovies[indexPath.row].actualImage = image
         })
         return cell
     }
@@ -146,6 +150,7 @@ extension HomeViewController {
         for (index, categ) in categories.enumerated() {
             if index == indexPath.row {
                 cell.label.text = categ.key
+                self.homeViewModel.currentCategory.append(categ.key)
             }
         }
         
@@ -168,7 +173,6 @@ extension HomeViewController {
     @objc func sectionHeaderTapped(_ sender: UITapGestureRecognizer) {
         if let section = sender.view?.tag {
             // Handle the tap on the section header with 'section' index
-            self.homeViewModel.isSectionExpanded = [false, false, false, false, false]
             self.homeViewModel.isSectionExpanded[section] = !self.homeViewModel.isSectionExpanded[section]
             self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
         }

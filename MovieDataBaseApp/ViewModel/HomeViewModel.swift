@@ -16,7 +16,7 @@ class HomeViewModel {
     var searchedMovies : [Movie] = []
     var sections: [Section] = Array(repeating: Section(), count: 5)
     var isSectionExpanded: [Bool] = [false, false, false, false, false]
-    var imageCache : [UIImage] = []
+    var currentCategory : [String] = []
     
     init(diskManager: DiskManager?, networkManager : NetworkManager?) {
         self.diskManager = diskManager

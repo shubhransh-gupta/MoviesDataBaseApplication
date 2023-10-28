@@ -43,6 +43,7 @@ class RatingControlView: UIView {
             addSubview(starImageView)
         }
     }
+
     
     override func layoutSubviews() {
         super.layoutSubviews()

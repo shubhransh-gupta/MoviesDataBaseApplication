@@ -5,7 +5,7 @@
 //  Created by Shubhransh Gupta on 27/10/23.
 //
 
-import Foundation
+import UIKit
 
 struct Movie: Codable {
     let title: String
@@ -33,7 +33,8 @@ struct Movie: Codable {
     let production: String?
     let website: String?
     let response: String?
-
+    var actualImage : UIImage?
+    
     enum CodingKeys: String, CodingKey {
         case title = "Title"
         case year = "Year"
