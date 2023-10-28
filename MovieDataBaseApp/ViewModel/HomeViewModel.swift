@@ -34,8 +34,6 @@ class HomeViewModel {
             print("Failed to load movies from JSON file.")
         }
     }
-
-    
     
 }
 
