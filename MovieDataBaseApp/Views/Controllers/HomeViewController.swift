@@ -16,20 +16,27 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         homeViewModel.willLoadDataFromJsonFile(fileName: "movies")
-        self.registerTableViewCells()
         updateUI()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.registerTableViewCells()
+    }
 
     func registerTableViewCells() {
+        if self.tableView.tag == 1 {
+            tableView.register(UINib(nibName: "CategoriesTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoriesTableViewCell")
+        }
         tableView.register(UINib(nibName: "MovieDetailsTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieDetailsTableViewCell")
-        tableView.register(UINib(nibName: "CategoriesTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoriesTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
     }
     
     func updateUI() {
         self.title = "Movie Database"
+        self.tableView.tag = 1
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search movies by title/actors/genre/directors"
@@ -42,8 +49,18 @@ class HomeViewController: UIViewController {
 extension HomeViewController : UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text ?? ""
-        self.homeViewModel.searchedMovies = self.homeViewModel.searchMovies(query: searchText)
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            self.tableView.tag = 2
+            self.homeViewModel.searchedMovies = self.homeViewModel.searchMovies(query: searchText)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } else {
+            self.tableView.tag = 1
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
 }
@@ -89,15 +106,29 @@ extension HomeViewController {
         return view
     }
     
+    public func getSearchedCategoriesCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> MovieDetailsTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieDetailsTableViewCell") as! MovieDetailsTableViewCell
+        cell.title.text = self.homeViewModel.searchedMovies[indexPath.row].title
+        cell.language.text = "Language :  " + "\(self.homeViewModel.searchedMovies[indexPath.row].language)"
+        cell.year.text = "Year :  " + "\(self.homeViewModel.searchedMovies[indexPath.row].year)"
+        self.homeViewModel.fetchImage(imageUrlString: self.homeViewModel.searchedMovies[indexPath.row].poster, OnSuccess: { image in
+            cell.poster.image = image
+            self.homeViewModel.searchedMovies[indexPath.row].actualImage = image
+        })
+        return cell
+    }
+    
     @objc func sectionHeaderTapped(_ sender: UITapGestureRecognizer) {
         if let section = sender.view?.tag {
             // Handle the tap on the section header with 'section' index
             self.homeViewModel.isSectionExpanded[section] = !self.homeViewModel.isSectionExpanded[section]
-            self.tableView.beginUpdates()
-            self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-            self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
-            self.tableView.endUpdates()
+            DispatchQueue.main.async {
+                self.tableView.beginUpdates()
+                self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+                self.tableView.endUpdates()
+            }
         }
     }
     

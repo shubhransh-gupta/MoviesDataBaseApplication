@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "34C90FA3-9830-410E-960E-47B0D819BD44"
+            uuid = "AD2453DE-DB6F-4DA6-9567-CBFC9BC91520"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MovieDataBaseApp/Views/Controllers/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "updateSearchResults(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -23,16 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "61838808-2A1C-4DF0-8FAD-104217A8A70E"
+            uuid = "EF33D5A5-021E-4D64-9D7F-F6FA5C169199"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MovieDataBaseApp/ViewModel/HomeViewModel.swift"
+            filePath = "MovieDataBaseApp/Views/Controllers/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "searchMovies(query:)"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "getSearchedCategoriesCell(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
