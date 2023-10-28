@@ -14,8 +14,9 @@ class HomeViewModel {
     
     var allMovies : [Movie] = []
     var searchedMovies : [Movie] = []
-    var sections: [Section] = []
+    var sections: [Section] = Array(repeating: Section(), count: 5)
     var isSectionExpanded: [Bool] = [false, false, false, false, false]
+    var currentCategory : [[String]] = [[],[],[],[]]
     
     init(diskManager: DiskManager?, networkManager : NetworkManager?) {
         self.diskManager = diskManager
@@ -33,8 +34,6 @@ class HomeViewModel {
             print("Failed to load movies from JSON file.")
         }
     }
-
-    
     
 }
 
@@ -53,33 +52,39 @@ extension HomeViewModel {
     
     private func populateDataInGenreCategory() {
         for movie in self.allMovies {
-            let genre = movie.genre
-            if self.sections[1].categories[genre] == nil {
-                self.sections[1].categories[genre] = [movie]
-            } else {
-                self.sections[1].categories[genre]?.append(movie)
+            let genre = movie.genre.components(separatedBy: ",")
+            for gen in genre {
+                if self.sections[1].categories[gen] == nil {
+                    self.sections[1].categories[gen] = [movie]
+                } else {
+                    self.sections[1].categories[gen]?.append(movie)
+                }
             }
         }
     }
     
     private func populateDataInActorCategory() {
         for movie in self.allMovies {
-            let actors = movie.actors
-            if self.sections[3].categories[actors] == nil {
-                self.sections[3].categories[actors] = [movie]
-            } else {
-                self.sections[3].categories[actors]?.append(movie)
+            let actors = movie.actors.components(separatedBy: ",")
+            for act in actors {
+                if self.sections[3].categories[act] == nil {
+                    self.sections[3].categories[act] = [movie]
+                } else {
+                    self.sections[3].categories[act]?.append(movie)
+                }
             }
         }
     }
     
     private func populateDataInDirectorCategory() {
         for movie in self.allMovies {
-            let director = movie.director
-            if self.sections[2].categories[director] == nil {
-                self.sections[2].categories[director] = [movie]
-            } else {
-                self.sections[2].categories[director]?.append(movie)
+            let director = movie.director.components(separatedBy: ",")
+            for dir in director {
+                if self.sections[2].categories[dir] == nil {
+                    self.sections[2].categories[dir] = [movie]
+                } else {
+                    self.sections[2].categories[dir]?.append(movie)
+                }
             }
         }
     }

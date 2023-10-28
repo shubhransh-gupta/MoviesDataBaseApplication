@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5uT-9I-Yhd">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -21,34 +21,49 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <searchBar contentMode="redraw" id="odc-wz-Kdc" customClass="UISearchController">
-                                <rect key="frame" x="0.0" y="67" width="393" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="pef-8A-yBZ"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="iwj-ab-Yhi"/>
                     <connections>
-                        <outlet property="searchBox" destination="odc-wz-Kdc" id="355-lj-tCp"/>
-                        <outlet property="searchDisplayController" destination="X3B-nP-LbI" id="hKm-Jz-kEH"/>
                         <outlet property="tableView" destination="zV9-Ua-edz" id="cEt-YG-nh0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="X3B-nP-LbI">
+            </objects>
+            <point key="canvasLocation" x="901.52671755725191" y="4.9295774647887329"/>
+        </scene>
+        <!--Movie Full Details View Controller-->
+        <scene sceneID="qzj-zy-V8r">
+            <objects>
+                <viewController storyboardIdentifier="MovieFullDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MCQ-mw-Usx" customClass="MovieFullDetailsViewController" customModule="MovieDataBaseApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wgd-k2-SFi">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="C3h-yO-3tb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="85F-53-PGF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1679" y="-6"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iKz-mm-XiG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5uT-9I-Yhd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GhY-2n-5s3">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
                     <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="HZB-2R-jz9"/>
-                        <outlet property="searchBar" destination="odc-wz-Kdc" id="aMS-YE-HdU"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="rFg-Y9-iKJ"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="J0G-yI-qDh"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="hex-yP-CfX"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="3bA-Ni-euO"/>
                     </connections>
-                </searchDisplayController>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XXQ-wt-Hcn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-25.190839694656489" y="4.9295774647887329"/>
         </scene>
